@@ -3,10 +3,9 @@ package kmeans.model;
 public class Point {
 
     /**
-     * Point will be 2 dimensional Points
+     * An array stores the coordinates
      */
-    protected double xCoord;
-    protected double yCoord;
+    protected double[] coordinates;
 
     /**
      * Default constructor
@@ -14,17 +13,12 @@ public class Point {
      * @param  x coordinates of a point
      * @param  y coordinates of a point
      */
-    public Point(double x, double y) {
-            this.xCoord = x;
-            this.yCoord = y;
+    public Point(double[] x) {
+            this.coordinates = x;
     }
 
-    public double getxCoord() {
-        return xCoord;
-    }
-
-    public double getyCoord() {
-        return yCoord;
+    public double[] getCoordinates() {
+        return coordinates;
     }
 
 }

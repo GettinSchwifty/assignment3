@@ -7,16 +7,12 @@ public class Centroid extends Point {
      * @param x x coordinates of a point
      * @param y y coordinates of a point
      */
-    public Centroid(double x, double y) {
-        super(x, y);
+    public Centroid(double[] x) {
+        super(x);
     }
 
-    public void setxCoord(double xCoord) {
-        this.xCoord = xCoord;
-    }
-
-    public void setyCoord(double yCoord) {
-        this.yCoord = yCoord;
+    public void setCoordinates(double[] coordinates) {
+        this.coordinates = coordinates;
     }
 
 }

@@ -10,10 +10,12 @@ public class KMeans {
     ArrayList<Cluster> clusters;
     ArrayList<Centroid> centroids = new ArrayList<Centroid>();
     ArrayList<Centroid> newCentroids = new ArrayList<Centroid>();
+    int dimensions;
 
-    public KMeans(ArrayList<Point> points, ArrayList<Cluster> clusters) {
+    public KMeans(ArrayList<Point> points, ArrayList<Cluster> clusters, int dimensions) {
         this.points = points;
         this.clusters = clusters;
+        this.dimensions = dimensions;
     }
 
     public void getCentroids(){
@@ -25,7 +27,7 @@ public class KMeans {
 
         for (Centroid centroid : centroids) {
 
-            System.out.println(centroid.getxCoord() + ", " + centroid.getyCoord() + " <<<<<<<<<<<<<<<<<< " + centroids.indexOf(centroid));
+            // TODO System.out.println(centroid.getxCoord() + ", " + centroid.getyCoord() + " <<<<<<<<<<<<<<<<<< " + centroids.indexOf(centroid));
         }
     }
 
@@ -36,13 +38,13 @@ public class KMeans {
 
         for (Point point : points) {
 
-            System.out.println("Point: " + points.indexOf(point) + "; Point: x -> " + point.getxCoord() + " ; y -> " + point.getyCoord() + " \n");
+            // TODO System.out.println("Point: " + points.indexOf(point) + "; Point: x -> " + point.getxCoord() + " ; y -> " + point.getyCoord() + " \n");
 
             for (Centroid centroid : centroids){
 
-                System.out.println("    Centroid: " + centroids.indexOf(centroid) + "; Point: x -> " + centroid.getxCoord() + " ; y -> " + centroid.getyCoord() + " \n");
+                // TODO System.out.println("    Centroid: " + centroids.indexOf(centroid) + "; Point: x -> " + centroid.getxCoord() + " ; y -> " + centroid.getyCoord() + " \n");
 
-                Double result = computeDistance(centroid,point);
+                Double result = computeDistance(centroid, point);
                 Integer centroidIndex =  centroids.indexOf(centroid);
 
                 System.out.println("Result distance : " + result);
@@ -72,7 +74,7 @@ public class KMeans {
                 Centroid newCentroid = computeClusterMean(cluster.getPoints());
 
                 cluster.changeCenterPoint(newCentroid);
-                System.out.println("===================  new centroid = " + newCentroid.getxCoord() + ", " + newCentroid.getyCoord());
+                //TODO System.out.println("===================  new centroid = " + newCentroid.getxCoord() + ", " + newCentroid.getyCoord());
             }
 
             newCentroids.add(cluster.getCenterPt());
@@ -101,18 +103,18 @@ public class KMeans {
 
     private Centroid computeClusterMean(ArrayList<Point> points){
 
-        double xSum = 0;
-        double ySum = 0;
+        double[] sum = new double[0];
         double nrPoints = points.size();
 
         for (Point point : points){
-            xSum += point.getxCoord();
-            ySum += point.getyCoord();
+            for(int i = 0; i < dimensions; i++)
+                sum[i] += point.coordinates[i];
         }
 
+        for(int i = 0; i < dimensions; i++)
+            sum[i] /= nrPoints;
 
-
-        Centroid meanPoint = new Centroid(xSum/nrPoints, ySum/nrPoints);
+        Centroid meanPoint = new Centroid(sum);
         return meanPoint;
     }
 
@@ -122,15 +124,21 @@ public class KMeans {
         for (Cluster cluster : clusters){
             System.out.println("Cluster: " + clusters.indexOf(cluster) + "; Points: ");
             for (Point point : cluster.getPoints()){
-                System.out.println("x -> " + point.getxCoord() + " ; y -> " + point.getyCoord() + " \n");
+                // TODOSystem.out.println("x -> " + point.getxCoord() + " ; y -> " + point.getyCoord() + " \n");
             }
         }
     }
 
     private double computeDistance(Centroid centroid, Point point){
 
-        double distance = Math.sqrt( ((double) Math.pow((centroid.getxCoord() - point.getxCoord()),2)
-                + (double) Math.pow((centroid.getyCoord() - point.getyCoord()),2)));
+        double distance = 0;
+        double[] centroidCoordinates = centroid.getCoordinates();
+        double[] pointCoordinates = point.getCoordinates();
+        double tempSum = 0;
+        for(int i = 0; i < dimensions; i++){
+            tempSum += Math.pow((centroidCoordinates[i] - pointCoordinates[i]),2);
+        }
+        distance = Math.sqrt(tempSum);
 
         System.out.println("Distance: " + distance + ", \n");
 

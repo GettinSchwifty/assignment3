@@ -26,6 +26,7 @@ public class CSVReader {
         FileReader CSVinput = null;
         CSVParser csvParser = null;
         char delimiter = ',';
+        int dimensions = 10;
 
         try {
             File fileToRead = new File(path);
@@ -45,11 +46,11 @@ public class CSVReader {
 
             int row = 0;
             for (CSVRecord record: datalist){
-                for (int i = 0; i < 10; i++){
+                for (int i = 0; i < dimensions; i++){
                     data[row][i] = Double.parseDouble(record.get(i));
                 }
                 //adds a new row for the cluster labels
-                data[row][10] = -1;
+                data[row][dimensions] = -1;
                 ++row;
             }
             return data;
@@ -122,12 +123,6 @@ public class CSVReader {
             }
         }
 
-    }
-
-    public static void main(String[] args){
-        CSVReader reader = new CSVReader();
-        System.out.println(reader.extractDataFromCSV(null).length);
-        System.out.println(reader.getSolution(null));
     }
 
 
