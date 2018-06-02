@@ -27,7 +27,7 @@ public class Main {
         ArrayList<Cluster> clusters = new ArrayList<Cluster>();
         for(int i = 0; i < numClusters; i++) {
             int index = r.nextInt(dataSet.size());
-            Centroid newCentroid = (Centroid)dataSet.get(index);
+            Centroid newCentroid = new Centroid(dataSet.get(index).getCoordinates());
             dataSet.remove(index);
             Cluster newCluster = new Cluster(newCentroid);
             clusters.add(newCluster);
@@ -35,7 +35,6 @@ public class Main {
         for(Point p : dataSet) {
             int index = r.nextInt(numClusters);
             clusters.get(index).addPoint(p);
-            dataSet.remove(p);
         }
         KMeans kMeans = new KMeans(dataSet, clusters, dimensions);
 
