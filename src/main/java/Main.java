@@ -28,8 +28,8 @@ public class Main {
         for(int i = 0; i < numClusters; i++) {
             int index = r.nextInt(dataSet.size());
             Centroid newCentroid = new Centroid(dataSet.get(index).getCoordinates());
-            dataSet.remove(index);
             Cluster newCluster = new Cluster(newCentroid);
+            newCluster.addPoint(dataSet.get(index));
             clusters.add(newCluster);
         }
         for(Point p : dataSet) {
