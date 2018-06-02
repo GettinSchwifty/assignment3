@@ -21,7 +21,7 @@ public class CSVReader {
      */
     public double[][] extractDataFromCSV(String path){
         if(path == null){
-            path = "/Users/milan/java/assignment3/src/assets/LSH-nmi.csv";
+            path = "/Users/aldinbradaric/Downloads/SS 2018/SDM/2018 ver/assignments/assignment3/src/assets/LSH-nmi.csv";
         }
         FileReader CSVinput = null;
         CSVParser csvParser = null;
@@ -77,7 +77,7 @@ public class CSVReader {
      */
     public ArrayList<Integer> getSolution(String path){
         if (path == null){
-            path="/Users/milan/java/assignment3/src/assets/LSH-nmi.csv";
+            path="/Users/aldinbradaric/Downloads/SS 2018/SDM/2018 ver/assignments/assignment3/src/assets/LSH-nmi.csv";
         }
 
         FileReader CSVinput = null;

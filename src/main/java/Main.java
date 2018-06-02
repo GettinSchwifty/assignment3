@@ -41,6 +41,12 @@ public class Main {
         kMeans.updateLloyd();
         kMeans.testCluster();
         ArrayList<Cluster> resultedClusters = kMeans.getClusters();
+        ArrayList<Integer> clusterLabels = kMeans.getClusterLabels();
+        for(int i = 0; i < clusterLabels.size(); ++i){
+            System.out.print(clusterLabels.get(i) + ", ");
+        }
+        System.out.println();
+        System.out.println("Labels size: " + clusterLabels.size());
 
     }
 }

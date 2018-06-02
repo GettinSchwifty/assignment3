@@ -10,12 +10,17 @@ public class KMeans {
     ArrayList<Cluster> clusters;
     ArrayList<Centroid> centroids = new ArrayList<Centroid>();
     ArrayList<Centroid> newCentroids = new ArrayList<Centroid>();
+    ArrayList<Integer> clusterLabels = new ArrayList<>();
     int dimensions;
 
     public KMeans(ArrayList<Point> points, ArrayList<Cluster> clusters, int dimensions) {
         this.points = points;
         this.clusters = clusters;
         this.dimensions = dimensions;
+    }
+
+    public ArrayList<Integer> getClusterLabels(){
+        return clusterLabels;
     }
 
     public void getCentroids(){
@@ -32,7 +37,7 @@ public class KMeans {
                 System.out.println(i + ": " + c + ", ");
                 i++;
             }
-            System.out.print(centroids.indexOf(centroid));
+            //System.out.print(centroids.indexOf(centroid));
         }
     }
 
@@ -52,8 +57,8 @@ public class KMeans {
                 Double result = computeDistance(centroid, point);
                 Integer centroidIndex =  centroids.indexOf(centroid);
 
-                System.out.println("Result distance : " + result);
-                System.out.println("-------------------------------");
+                //System.out.println("Result distance : " + result);
+                //System.out.println("-------------------------------");
 
                 if (centroids.indexOf(centroid) == 0){
                     smallestCentroidPointDistance = result;
@@ -67,10 +72,11 @@ public class KMeans {
             }
 
             clusters.get(smallestDistanceIndex).addPoint(point);
-            System.out.println("=================================");
+            /*System.out.println("=================================");
             System.out.println("Smallest distance: "  + smallestCentroidPointDistance);
             System.out.println("Chosen Cluster: "  + smallestDistanceIndex);
-            System.out.println("=================================");
+            System.out.println("=================================");*/
+            clusterLabels.add(smallestDistanceIndex);
         }
 
         for (Cluster cluster : clusters){
@@ -127,7 +133,7 @@ public class KMeans {
     public void testCluster(){
 
         for (Cluster cluster : clusters){
-            System.out.println("Cluster: " + clusters.indexOf(cluster) + "; Points: ");
+            //System.out.println("Cluster: " + clusters.indexOf(cluster) + "; Points: ");
 //            for (Point point : cluster.getPoints()){
 //                int i;
 //                for ()
@@ -148,7 +154,7 @@ public class KMeans {
         }
         distance = Math.sqrt(tempSum);
 
-        System.out.println("Distance: " + distance + ", \n");
+        //System.out.println("Distance: " + distance + ", \n");
 
         return distance;
     }
