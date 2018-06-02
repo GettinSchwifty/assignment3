@@ -15,4 +15,8 @@ public class Centroid extends Point {
         this.coordinates = coordinates;
     }
 
+    @Override
+    public double[] getCoordinates() {
+        return super.getCoordinates();
+    }
 }

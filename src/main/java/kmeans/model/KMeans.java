@@ -26,8 +26,13 @@ public class KMeans {
         }
 
         for (Centroid centroid : centroids) {
-
-            // TODO System.out.println(centroid.getxCoord() + ", " + centroid.getyCoord() + " <<<<<<<<<<<<<<<<<< " + centroids.indexOf(centroid));
+            double[] coordinates = centroid.getCoordinates();
+            for (double c : coordinates) {
+                int i = 0;
+                System.out.println(i + ": " + c + ", ");
+                i++;
+            }
+            System.out.print(centroids.indexOf(centroid));
         }
     }
 
@@ -103,7 +108,7 @@ public class KMeans {
 
     private Centroid computeClusterMean(ArrayList<Point> points){
 
-        double[] sum = new double[0];
+        double[] sum = new double[dimensions];
         double nrPoints = points.size();
 
         for (Point point : points){
@@ -123,9 +128,12 @@ public class KMeans {
 
         for (Cluster cluster : clusters){
             System.out.println("Cluster: " + clusters.indexOf(cluster) + "; Points: ");
-            for (Point point : cluster.getPoints()){
-                // TODOSystem.out.println("x -> " + point.getxCoord() + " ; y -> " + point.getyCoord() + " \n");
-            }
+//            for (Point point : cluster.getPoints()){
+//                int i;
+//                for ()
+//                System.out.print("x -> " + point.getxCoord() + " ; y -> " + point.getyCoord() + " \n");
+//                i++;
+//            }
         }
     }
 

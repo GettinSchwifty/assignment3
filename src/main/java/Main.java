@@ -37,6 +37,10 @@ public class Main {
             clusters.get(index).addPoint(p);
         }
         KMeans kMeans = new KMeans(dataSet, clusters, dimensions);
+        kMeans.getCentroids();
+        kMeans.updateLloyd();
+        kMeans.testCluster();
+        ArrayList<Cluster> resultedClusters = kMeans.getClusters();
 
     }
 }
