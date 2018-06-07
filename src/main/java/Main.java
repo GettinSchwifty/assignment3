@@ -10,7 +10,7 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args){
         Random r = new Random();
-        int numClusters = 10;
+        int numClusters = 15;
         CSVReader reader = new CSVReader();
         double[][] rawData = reader.extractDataFromCSV(null);
         int numPoints = rawData.length;
@@ -43,9 +43,9 @@ public class Main {
         kMeans.testCluster();
         ArrayList<Cluster> resultedClusters = kMeans.getClusters();
         ArrayList<Integer> clusterLabels = kMeans.getClusterLabels();
-        for(int i = 0; i < clusterLabels.size(); ++i){
-            System.out.print(clusterLabels.get(i) + ", ");
-        }
+//        for(int i = 0; i < clusterLabels.size(); ++i){
+//            System.out.print(clusterLabels.get(i) + ", ");
+//        }
         System.out.println();
         System.out.println("Labels size: " + clusterLabels.size());
         double nmiResult = NMI(clusterLabels, reader.getSolution(null));
