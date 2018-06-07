@@ -27,25 +27,26 @@ public class KMeans {
 
     public void getCentroids(){
 
-        System.out.println("Getting centroids: \n");
+        //System.out.println("Getting centroids: \n");
         for (Cluster cluster : clusters){
             centroids.add(cluster.getCenterPt());
         }
 
-        for (Centroid centroid : centroids) {
-            double[] coordinates = centroid.getCoordinates();
-            for (double c : coordinates) {
-                int i = 0;
-                System.out.println(i + ": " + c + ", ");
-                i++;
-            }
-            //System.out.print(centroids.indexOf(centroid));
-        }
+//        for (Centroid centroid : centroids) {
+//            double[] coordinates = centroid.getCoordinates();
+//            for (double c : coordinates) {
+//                int i = 0;
+//                System.out.println(i + ": " + c + ", ");
+//                i++;
+//            }
+//            //System.out.print(centroids.indexOf(centroid));
+//        }
     }
 
     public void updateLloyd() {
 
-        System.out.println("Iteration: " + iteration++);
+        //System.out.println("Iteration: " + iteration++);
+        iteration++;
 
         double smallestCentroidPointDistance = -1;
         Integer smallestDistanceIndex = 0;
@@ -105,7 +106,7 @@ public class KMeans {
             updateLloyd();
         }
 
-        System.out.println("The algorithm has converged !!");
+        //System.out.println("The algorithm has converged !!");
     }
 
     private boolean checkForConvergence(){

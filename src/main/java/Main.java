@@ -37,19 +37,22 @@ public class Main {
             int index = r.nextInt(numClusters);
             clusters.get(index).addPoint(p);
         }
+
+        long startTime = System.currentTimeMillis();
         KMeans kMeans = new KMeans(dataSet, clusters, dimensions);
         kMeans.getCentroids();
         kMeans.updateLloyd();
-        kMeans.testCluster();
+        long endTime = System.currentTimeMillis();
+        //kMeans.testCluster();
         ArrayList<Cluster> resultedClusters = kMeans.getClusters();
         ArrayList<Integer> clusterLabels = kMeans.getClusterLabels();
 //        for(int i = 0; i < clusterLabels.size(); ++i){
 //            System.out.print(clusterLabels.get(i) + ", ");
 //        }
-        System.out.println();
+        long elapsedTime = endTime - startTime;
+        System.out.println("Elapsed time: " + ((double)elapsedTime / 1000) + " seconds");
         System.out.println("Labels size: " + clusterLabels.size());
-        double nmiResult = NMI(clusterLabels, reader.getSolution(null));
-        System.out.println(nmiResult);
+        NMI(clusterLabels, reader.getSolution(null));
 
     }
 
