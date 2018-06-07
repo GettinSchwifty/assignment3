@@ -12,6 +12,8 @@ public class KMeans {
     ArrayList<Centroid> newCentroids = new ArrayList<Centroid>();
     ArrayList<Integer> clusterLabels = new ArrayList<>();
     int dimensions;
+    int iteration = 0;
+    int limit = 10;
 
     public KMeans(ArrayList<Point> points, ArrayList<Cluster> clusters, int dimensions) {
         this.points = points;
@@ -43,10 +45,16 @@ public class KMeans {
 
     public void updateLloyd() {
 
+        System.out.println("Iteration: " + iteration++);
+
         double smallestCentroidPointDistance = -1;
         Integer smallestDistanceIndex = 0;
 
+        clusterLabels.clear();
+
         for (Point point : points) {
+
+
 
             // TODO System.out.println("Point: " + points.indexOf(point) + "; Point: x -> " + point.getxCoord() + " ; y -> " + point.getyCoord() + " \n");
 
@@ -101,14 +109,18 @@ public class KMeans {
     }
 
     private boolean checkForConvergence(){
-        for ( Centroid oldCentroid : centroids){
-
-            Integer currentIndex = centroids.indexOf(oldCentroid);
-
-            if ( !oldCentroid.equals(newCentroids.get(currentIndex))){
-                return false;
-            }
+        if(iteration > limit-1) {
+            return false;
         }
+
+//        for ( Centroid oldCentroid : centroids){
+//
+//            Integer currentIndex = centroids.indexOf(oldCentroid);
+//
+//            if ( !oldCentroid.equals(newCentroids.get(currentIndex))){
+//                return false;
+//            }
+//        }
         return true;
     }
 
