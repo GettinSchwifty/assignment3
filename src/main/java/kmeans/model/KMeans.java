@@ -1,7 +1,5 @@
 package kmeans.model;
 
-import kmeans.model.Centroid;
-
 import java.util.ArrayList;
 
 public class KMeans {
@@ -21,31 +19,19 @@ public class KMeans {
         this.dimensions = dimensions;
     }
 
-    public ArrayList<Integer> getClusterLabels(){
+    public ArrayList<Integer> getClusterLabels() {
         return clusterLabels;
     }
 
-    public void getCentroids(){
+    public void getCentroids() {
 
-        //System.out.println("Getting centroids: \n");
-        for (Cluster cluster : clusters){
+        for (Cluster cluster : clusters) {
             centroids.add(cluster.getCenterPt());
         }
-
-//        for (Centroid centroid : centroids) {
-//            double[] coordinates = centroid.getCoordinates();
-//            for (double c : coordinates) {
-//                int i = 0;
-//                System.out.println(i + ": " + c + ", ");
-//                i++;
-//            }
-//            //System.out.print(centroids.indexOf(centroid));
-//        }
     }
 
     public void updateLloyd() {
 
-        //System.out.println("Iteration: " + iteration++);
         iteration++;
 
         double smallestCentroidPointDistance = -1;
@@ -56,20 +42,12 @@ public class KMeans {
         for (Point point : points) {
 
 
-
-            // TODO System.out.println("Point: " + points.indexOf(point) + "; Point: x -> " + point.getxCoord() + " ; y -> " + point.getyCoord() + " \n");
-
-            for (Centroid centroid : centroids){
-
-                // TODO System.out.println("    Centroid: " + centroids.indexOf(centroid) + "; Point: x -> " + centroid.getxCoord() + " ; y -> " + centroid.getyCoord() + " \n");
+            for (Centroid centroid : centroids) {
 
                 Double result = computeDistance(centroid, point);
-                Integer centroidIndex =  centroids.indexOf(centroid);
+                Integer centroidIndex = centroids.indexOf(centroid);
 
-                //System.out.println("Result distance : " + result);
-                //System.out.println("-------------------------------");
-
-                if (centroids.indexOf(centroid) == 0){
+                if (centroids.indexOf(centroid) == 0) {
                     smallestCentroidPointDistance = result;
                     smallestDistanceIndex = centroidIndex;
                 }
@@ -81,20 +59,15 @@ public class KMeans {
             }
 
             clusters.get(smallestDistanceIndex).addPoint(point);
-            /*System.out.println("=================================");
-            System.out.println("Smallest distance: "  + smallestCentroidPointDistance);
-            System.out.println("Chosen Cluster: "  + smallestDistanceIndex);
-            System.out.println("=================================");*/
             clusterLabels.add(smallestDistanceIndex);
         }
 
-        for (Cluster cluster : clusters){
+        for (Cluster cluster : clusters) {
 
-            if(cluster.getPoints().size() != 0) {
+            if (cluster.getPoints().size() != 0) {
                 Centroid newCentroid = computeClusterMean(cluster.getPoints());
 
                 cluster.changeCenterPoint(newCentroid);
-                //TODO System.out.println("===================  new centroid = " + newCentroid.getxCoord() + ", " + newCentroid.getyCoord());
             }
 
             newCentroids.add(cluster.getCenterPt());
@@ -102,72 +75,49 @@ public class KMeans {
         }
 
         boolean resultConvergenceCheck = checkForConvergence();
-        if (resultConvergenceCheck){
+        if (resultConvergenceCheck) {
             updateLloyd();
         }
 
-        //System.out.println("The algorithm has converged !!");
     }
 
-    private boolean checkForConvergence(){
-        if(iteration > limit-1) {
+    private boolean checkForConvergence() {
+        if (iteration > limit - 1) {
             return false;
         }
 
-//        for ( Centroid oldCentroid : centroids){
-//
-//            Integer currentIndex = centroids.indexOf(oldCentroid);
-//
-//            if ( !oldCentroid.equals(newCentroids.get(currentIndex))){
-//                return false;
-//            }
-//        }
         return true;
     }
 
-    private Centroid computeClusterMean(ArrayList<Point> points){
+    private Centroid computeClusterMean(ArrayList<Point> points) {
 
         double[] sum = new double[dimensions];
         double nrPoints = points.size();
 
-        for (Point point : points){
-            for(int i = 0; i < dimensions; i++)
+        for (Point point : points) {
+            for (int i = 0; i < dimensions; i++)
                 sum[i] += point.coordinates[i];
         }
 
-        for(int i = 0; i < dimensions; i++)
+        for (int i = 0; i < dimensions; i++)
             sum[i] /= nrPoints;
 
         Centroid meanPoint = new Centroid(sum);
         return meanPoint;
     }
 
-    // test the points that are added to a cluster
-    public void testCluster(){
 
-        for (Cluster cluster : clusters){
-            //System.out.println("Cluster: " + clusters.indexOf(cluster) + "; Points: ");
-//            for (Point point : cluster.getPoints()){
-//                int i;
-//                for ()
-//                System.out.print("x -> " + point.getxCoord() + " ; y -> " + point.getyCoord() + " \n");
-//                i++;
-//            }
-        }
-    }
-
-    private double computeDistance(Centroid centroid, Point point){
+    private double computeDistance(Centroid centroid, Point point) {
 
         double distance = 0;
         double[] centroidCoordinates = centroid.getCoordinates();
         double[] pointCoordinates = point.getCoordinates();
         double tempSum = 0;
-        for(int i = 0; i < dimensions; i++){
-            tempSum += Math.pow((centroidCoordinates[i] - pointCoordinates[i]),2);
+        for (int i = 0; i < dimensions; i++) {
+            tempSum += Math.pow((centroidCoordinates[i] - pointCoordinates[i]), 2);
         }
         distance = Math.sqrt(tempSum);
 
-        //System.out.println("Distance: " + distance + ", \n");
 
         return distance;
     }

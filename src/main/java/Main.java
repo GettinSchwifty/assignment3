@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Main {
+
     public static void main(String[] args){
         Random r = new Random();
         int numClusters = 15;
@@ -15,7 +16,7 @@ public class Main {
         double[][] rawData = reader.extractDataFromCSV(null);
         int numPoints = rawData.length;
         int dimensions = rawData[0].length - 1;
-        System.out.println(reader.getSolution(null));
+
         ArrayList<Point> dataSet = new ArrayList<Point>();
         for(int i = 0; i < numPoints; i++) {
             double[] coordinates = new double[dimensions];
@@ -25,6 +26,7 @@ public class Main {
             Point currentPoint = new Point(coordinates);
             dataSet.add(currentPoint);
         }
+
         ArrayList<Cluster> clusters = new ArrayList<Cluster>();
         for(int i = 0; i < numClusters; i++) {
             int index = r.nextInt(dataSet.size());
@@ -33,6 +35,7 @@ public class Main {
             newCluster.addPoint(dataSet.get(index));
             clusters.add(newCluster);
         }
+
         for(Point p : dataSet) {
             int index = r.nextInt(numClusters);
             clusters.get(index).addPoint(p);
@@ -43,15 +46,12 @@ public class Main {
         kMeans.getCentroids();
         kMeans.updateLloyd();
         long endTime = System.currentTimeMillis();
-        //kMeans.testCluster();
+
         ArrayList<Cluster> resultedClusters = kMeans.getClusters();
         ArrayList<Integer> clusterLabels = kMeans.getClusterLabels();
-//        for(int i = 0; i < clusterLabels.size(); ++i){
-//            System.out.print(clusterLabels.get(i) + ", ");
-//        }
+
         long elapsedTime = endTime - startTime;
         System.out.println("Elapsed time: " + ((double)elapsedTime / 1000) + " seconds");
-        System.out.println("Labels size: " + clusterLabels.size());
         NMI(clusterLabels, reader.getSolution(null));
 
     }
@@ -65,12 +65,11 @@ public class Main {
         int maxtwo = Collections.max(two);
 
         double[][] count = new double[maxone+1][maxtwo+1];
-        //System.out.println(count[1][2]);
+
         for(int i=0;i<one.size();i++){
             count[one.get(i)][two.get(i)]++;
         }
-        //i<maxone=R
-        //j<maxtwo=C
+
         double[] bj = new double[maxtwo+1];
         double[] ai = new double[maxone+1];
 
